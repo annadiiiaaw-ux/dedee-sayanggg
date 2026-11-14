@@ -1,0 +1,551 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Please Forgive Me ♡</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background: #fff7e5;
+  font-family: Arial, sans-serif;
+  color: #5f4b46;
+  overflow-x: hidden;
+}
+
+#app {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 25px 15px;
+  position: relative;
+  overflow: hidden;
+}
+
+.page {
+  display: none;
+  width: 100%;
+  max-width: 480px;
+  text-align: center;
+  animation: appear .6s ease;
+}
+
+.page.active {
+  display: block;
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+h1 {
+  font-size: 29px;
+  margin-bottom: 20px;
+}
+
+p {
+  line-height: 1.7;
+}
+
+.heart {
+  color: #eb7387;
+  font-size: 55px;
+  animation: beat 1s infinite;
+}
+
+@keyframes beat {
+  50% { transform: scale(1.2); }
+}
+
+input {
+  width: 100%;
+  padding: 17px;
+  border: 2px solid #b4d7eb;
+  border-radius: 13px;
+  font-size: 17px;
+  margin: 30px 0 20px;
+  outline: none;
+  background: white;
+  color: #5f4b46;
+}
+
+button {
+  border: 3px solid white;
+  border-radius: 16px;
+  padding: 17px 25px;
+  font-size: 17px;
+  font-weight: bold;
+  color: #5f4b46;
+  cursor: pointer;
+  transition: .2s;
+  box-shadow: 0 4px 10px #00000010;
+}
+
+button:active {
+  transform: scale(.95);
+}
+
+.yellow { background: #ffdc91; }
+.green { background: #b4d7b4; }
+.peach { background: #ffcdaf; }
+.pink { background: #f5afb9; }
+.blue { background: #b4d7eb; }
+
+.full-btn {
+  width: 100%;
+  max-width: 280px;
+}
+
+.envelopes {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 55px 0 25px;
+}
+
+.envelope-choice {
+  width: 48%;
+  max-width: 190px;
+  height: 220px;
+  border-radius: 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.envelope-choice:hover {
+  transform: translateY(-8px);
+}
+
+.envelope-icon {
+  font-size: 85px;
+  animation: float 2s infinite ease-in-out;
+}
+
+@keyframes float {
+  50% { transform: translateY(-10px); }
+}
+
+.big-envelope {
+  font-size: 125px;
+  cursor: pointer;
+  animation: float 2s infinite ease-in-out;
+  margin: 65px 0;
+}
+
+.card {
+  background: white;
+  border: 3px solid #f5afb9;
+  border-radius: 22px;
+  padding: 30px 23px;
+  min-height: 350px;
+  text-align: left;
+  box-shadow: 0 8px 25px #0000000c;
+}
+
+.message {
+  font-size: 19px;
+  line-height: 1.9;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  min-height: 230px;
+}
+
+.next-btn {
+  margin-top: 25px;
+  width: 100%;
+}
+
+.progress {
+  margin-top: 18px;
+  font-size: 15px;
+}
+
+.choice-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.choice-buttons button {
+  flex: 1;
+}
+
+#confetti {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  top: -20px;
+  width: 9px;
+  height: 12px;
+  animation: fall linear forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh) rotate(720deg);
+  }
+}
+
+.decoration {
+  position: fixed;
+  font-size: 23px;
+  opacity: .7;
+  pointer-events: none;
+}
+
+.d1 { top: 8%; left: 7%; }
+.d2 { top: 12%; right: 8%; }
+.d3 { bottom: 8%; left: 8%; }
+.d4 { bottom: 10%; right: 8%; }
+
+@media(max-width:380px) {
+  h1 { font-size: 25px; }
+  .card { padding: 22px 17px; }
+  .message { font-size: 17px; }
+  .envelope-choice { height: 190px; }
+}
+</style>
+</head>
+
+<body>
+
+<div id="app">
+
+<div class="decoration d1">♡</div>
+<div class="decoration d2">✦</div>
+<div class="decoration d3">♡</div>
+<div class="decoration d4">✿</div>
+
+<div id="confetti"></div>
+
+<!-- PAGE 1: NAME -->
+<section class="page active" id="name">
+  <h1>HEYYY, KAMU!</h1>
+  <p>Surat ini buat siapa?</p>
+
+  <input id="recipient" maxlength="22"
+    placeholder="Ketik nama..." />
+
+  <button class="yellow full-btn" onclick="start()">
+    MULAI! ♡
+  </button>
+
+  <p style="margin-top:30px">
+    Ketik nama kamu dulu yaa
+  </p>
+</section>
+
+<!-- PAGE 2: CHOOSE -->
+<section class="page" id="choose">
+  <h1>PILIH SURATMU!</h1>
+  <p>Mau buka yang mana?</p>
+
+  <div class="envelopes">
+    <div class="envelope-choice yellow"
+      onclick="openEnvelope()">
+      <span class="envelope-icon">💌</span>
+      <b>KIRI</b>
+    </div>
+
+    <div class="envelope-choice blue"
+      onclick="openEnvelope()">
+      <span class="envelope-icon">💌</span>
+      <b>KANAN</b>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE 3: ENVELOPE -->
+<section class="page" id="envelope">
+  <h1>ADA SURAT BUAT KAMU!</h1>
+
+  <div class="big-envelope"
+    onclick="beginLetter()">💌</div>
+
+  <p>Sentuh amplopnya!</p>
+</section>
+
+<!-- PAGE 4: LETTER -->
+<section class="page" id="letter">
+  <h1 style="font-size:23px">
+    A LITTLE APOLOGY LETTER
+  </h1>
+
+  <div class="card">
+    <div class="message" id="letterText"></div>
+    <button id="letterNext"
+      class="green next-btn"
+      onclick="nextLetter()"
+      style="display:none">
+      LANJUT ♡
+    </button>
+  </div>
+
+  <div class="progress" id="letterProgress"></div>
+</section>
+
+<!-- PAGE 5: QUESTION -->
+<section class="page" id="question">
+  <h1>JADIII...</h1>
+  <p style="font-size:22px">
+    Kamu mau maafin aku?
+  </p>
+
+  <div class="heart">♥</div>
+
+  <div class="choice-buttons">
+    <button class="green" onclick="yes()">YES! ♡</button>
+    <button class="peach" onclick="no()">NO :(</button>
+  </div>
+</section>
+
+<!-- PAGE 6: NO -->
+<section class="page" id="no">
+  <h1>YAHHHH...</h1>
+  <div class="heart" style="color:#b4d7eb">♥</div>
+
+  <p>Aku ga dimaafin :(( cediii</p>
+
+  <button class="yellow full-btn"
+    style="margin-top:35px"
+    onclick="show('question')">
+    COBA LAGI? ♡
+  </button>
+</section>
+
+<!-- PAGE 7: YES -->
+<section class="page" id="yes">
+  <h1>YEYYYYY!!!</h1>
+
+  <div class="card">
+    <div class="message" id="thanksText"></div>
+    <button id="thanksNext"
+      class="yellow next-btn"
+      onclick="nextThanks()"
+      style="display:none">
+      LANJUT ♡
+    </button>
+  </div>
+
+  <div class="progress" id="thanksProgress"></div>
+</section>
+
+</div>
+
+<script>
+let recipient = "";
+let letterPage = 0;
+let finalPage = 0;
+let typingTimer = null;
+let typingDone = false;
+let currentText = "";
+let currentIndex = 0;
+
+const letter = [
+  "Hai dedee, sayangkuuu!",
+  "Aku mau ngomong sesuatu. Makasih ya karena kamu sudah sabar menghadapi aku.",
+  "Maaf kalau tadi aku egois sama kamu. Aku sadar kalau perasaan kamu juga penting dan harus aku dengarkan.",
+  "Aku nggak bermaksud bikin kamu sedih. Aku masih belajar memahami kamu dan memperbaiki sikap aku.",
+  "Jangan marah terus yaa, nanti aku bingung harus merayu kamu pakai apa lagi WKWKWK.",
+  "Aku sayang banget sama kamu. Semoga kita bisa ngobrol baik-baik dan saling mengerti.",
+  "Jadiii... kamu mau maafin aku nggak? Pleaseee? :("
+];
+
+const thanks = [
+  "YEYYYY! MAKASIH YA DEDEEE!",
+  "Makasih ya sayangku sudah mau maafin aku. Aku seneng bangettt!",
+  "Maaf kalau tadi aku egois sama kamu. Aku nggak mau cuma minta maaf, aku juga mau memperbaiki sikap aku.",
+  "Aku bakal berusaha lebih dengerin kamu dan memahami perasaan kamu.",
+  "Kalau ada yang bikin kamu nggak nyaman, bilang sama aku ya. Kita bicarain baik-baik.",
+  "Sekali lagi makasih, Dede cayangkuuu! Kamu baik bangettt!",
+  "AKU MNT MAAF DEDE CAYANGKU ♡"
+];
+
+function show(id) {
+  document.querySelectorAll(".page").forEach(page => {
+    page.classList.remove("active");
+  });
+
+  document.getElementById(id).classList.add("active");
+}
+
+function start() {
+  const input = document.getElementById("recipient").value.trim();
+
+  recipient = input || "Dede cayangku";
+  show("choose");
+}
+
+function openEnvelope() {
+  show("envelope");
+}
+
+function beginLetter() {
+  letterPage = 0;
+  show("letter");
+  displayLetter();
+}
+
+function typeText(text, element, button, callback) {
+  clearInterval(typingTimer);
+
+  currentText = text;
+  currentIndex = 0;
+  typingDone = false;
+
+  element.textContent = "";
+  button.style.display = "none";
+
+  typingTimer = setInterval(() => {
+    currentIndex++;
+
+    element.textContent =
+      currentText.substring(0, currentIndex);
+
+    if (currentIndex >= currentText.length) {
+      clearInterval(typingTimer);
+      typingDone = true;
+      button.style.display = "block";
+      callback();
+    }
+  }, 35);
+}
+
+function displayLetter() {
+  const text = letter[letterPage].replaceAll(
+    "{name}", recipient
+  );
+
+  document.getElementById("letterProgress").textContent =
+    (letterPage + 1) + " / " + letter.length;
+
+  const btn = document.getElementById("letterNext");
+
+  btn.textContent =
+    letterPage === letter.length - 1
+    ? "SELESAI ♡"
+    : "LANJUT ♡";
+
+  typeText(
+    text,
+    document.getElementById("letterText"),
+    btn,
+    () => {}
+  );
+}
+
+function nextLetter() {
+  if (!typingDone) return;
+
+  if (letterPage < letter.length - 1) {
+    letterPage++;
+    displayLetter();
+  } else {
+    show("question");
+  }
+}
+
+function no() {
+  show("no");
+}
+
+function yes() {
+  finalPage = 0;
+  show("yes");
+  makeConfetti();
+  displayThanks();
+}
+
+function displayThanks() {
+  const text = thanks[finalPage].replaceAll(
+    "{name}", recipient
+  );
+
+  document.getElementById("thanksProgress").textContent =
+    (finalPage + 1) + " / " + thanks.length;
+
+  const btn = document.getElementById("thanksNext");
+
+  btn.textContent =
+    finalPage === thanks.length - 1
+    ? "SELESAI ♡"
+    : "LANJUT ♡";
+
+  typeText(
+    text,
+    document.getElementById("thanksText"),
+    btn,
+    () => {}
+  );
+}
+
+function nextThanks() {
+  if (!typingDone) return;
+
+  if (finalPage < thanks.length - 1) {
+    finalPage++;
+    displayThanks();
+  } else {
+    document.getElementById("thanksNext").style.display = "none";
+    document.getElementById("thanksText").textContent +=
+      "\n\nTerima kasih sudah membaca surat ini. ♡";
+  }
+}
+
+function makeConfetti() {
+  const area = document.getElementById("confetti");
+  area.innerHTML = "";
+
+  const colors = [
+    "#f5afb9",
+    "#ffdc91",
+    "#b4d7eb",
+    "#b4d7b4",
+    "#ffcdaf"
+  ];
+
+  for (let i = 0; i < 90; i++) {
+    const piece = document.createElement("div");
+
+    piece.className = "particle";
+    piece.style.left = Math.random() * 100 + "%";
+    piece.style.background =
+      colors[Math.floor(Math.random() * colors.length)];
+
+    piece.style.animationDuration =
+      (2 + Math.random() * 3) + "s";
+
+    piece.style.animationDelay =
+      Math.random() * 2 + "s";
+
+    area.appendChild(piece);
+  }
+
+  setTimeout(() => {
+    area.innerHTML = "";
+  }, 7000);
+}
+</script>
+
+</body>
+</html>
